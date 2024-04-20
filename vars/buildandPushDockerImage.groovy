@@ -3,7 +3,7 @@ def call(String dockerHubCredentialsID, String imageName) {
 
 	// Log in to DockerHub 
 	withCredentials([usernamePassword(credentialsId: "${dockerHubCredentialsID}", usernameVariable: 'USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
-		sh "docker login -u ${USERNAME} -p ${DOCKERHUB_PASSWORD}"
+		sh 'docker login -u ${USERNAME} -p ${DOCKERHUB_PASSWORD}'
         }
         
         // Build and push Docker image
