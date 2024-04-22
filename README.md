@@ -40,11 +40,11 @@ def call(String dockerHubCredentialsID, String imageName) {
 def call(String k8sCredentialsID, String imageName) {
     
     // Update deployment.yaml with new Docker Hub image
-    sh "sed -i 's|image:.*|image: ${imageName}:${BUILD_NUMBER}|g' deployment.yaml"
+    sh "sed -i 's|image:.*|image: ${imageName}:${BUILD_NUMBER}|g' myapp-deployment.yml"
 
     // login to k8s Cluster via KubeConfig file
     withCredentials([file(credentialsId: "${k8sCredentialsID}", variable: 'KUBECONFIG_FILE')]) {
-        sh "export KUBECONFIG=${KUBECONFIG_FILE} && kubectl apply -f ."
+        sh "export KUBECONFIG=${KUBECONFIG_FILE} && kubectl apply -f myapp-deployment.yml"
     }
 }
 ```
